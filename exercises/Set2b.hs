@@ -99,7 +99,11 @@ leftpad str i
 -- * you'll probably need a recursive helper function
 
 countdown :: Integer -> String
-countdown = todo
+countdown x = "Ready! " ++ countdown' x
+
+countdown' :: Integer -> String
+countdown' 0 = "Liftoff!"
+countdown' x = show x ++ "... " ++ countdown' (x-1)
 
 ------------------------------------------------------------------------------
 -- Ex 6: implement the function smallestDivisor that returns the
@@ -117,7 +121,10 @@ countdown = todo
 -- Hint: remember the mod function!
 
 smallestDivisor :: Integer -> Integer
-smallestDivisor = todo
+smallestDivisor x = smallestDivisor' x 2
+
+smallestDivisor' :: Integer -> Integer -> Integer
+smallestDivisor' x y = if x `mod` y == 0 then y else smallestDivisor' x (y+1)
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement a function isPrime that checks if the given number
@@ -126,7 +133,9 @@ smallestDivisor = todo
 -- Ps. 0 and 1 are not prime numbers
 
 isPrime :: Integer -> Bool
-isPrime = todo
+isPrime x
+    | x <= 1    = False
+    | otherwise = smallestDivisor' x 2 == x
 
 ------------------------------------------------------------------------------
 -- Ex 8: implement a function biggestPrimeAtMost that returns the
@@ -141,4 +150,6 @@ isPrime = todo
 --   biggestPrimeAtMost 10 ==> 7
 
 biggestPrimeAtMost :: Integer -> Integer
-biggestPrimeAtMost = todo
+biggestPrimeAtMost x
+  | isPrime x = x
+  | otherwise = biggestPrimeAtMost (x-1)
